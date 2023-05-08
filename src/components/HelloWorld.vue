@@ -73,15 +73,17 @@ export default {
       accesstoken: "",
       patient: "",
       patientdata: {},
-      clientId: "42f3b173-16a8-4c50-a3ea-0269294cb869", // Replace with your client id
-      redirect: import.meta.env.PROD
-        ? "https://lucid-wozniak-940eae.netlify.app"
-        : "http://localhost:3000",
+      clientId: "bcec04a9-9324-408d-9be0-09d28779f485", // Replace with your client id
+      redirect: "http://localhost:3000",
     };
   },
   computed: {
     authorizeLink() {
-      return `https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=${this.redirect}&client_id=${this.clientId}&state=1234&scope=patient.read, patient.search`;
+      return `https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=${encodeURIComponent(
+        this.redirect
+      )}&client_id=${
+        this.clientId
+      }&state=1234&scope=patient.read,patient.search&aud=https%3A%2F%2Ffhir.epic.com%2Finterconnect-fhir-oauth%2Fapi%2Ffhir%2Fdstu2`;
     },
   },
   async mounted() {
